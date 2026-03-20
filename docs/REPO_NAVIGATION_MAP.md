@@ -30,6 +30,7 @@ exports/aegis_magnum/
     ├── ADAPTER_CONTRACT.v1.md           (draft)
     ├── ADAPTER_RESEARCH.v1.md           (draft)
     ├── MVP_ROADMAP.md
+    ├── COLLABORATION_WORKSPACE.v1.md    (optional ChatGPT / multi-project map)
     └── REPO_NAVIGATION_MAP.md           (this file)
 ```
 
@@ -50,6 +51,7 @@ exports/aegis_magnum/
 | **Leak / compromise** | [INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md](INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md) |
 | **Adapter interface (draft)** | [ADAPTER_CONTRACT.v1.md](ADAPTER_CONTRACT.v1.md) |
 | **Roadmap** | [MVP_ROADMAP.md](MVP_ROADMAP.md) |
+| **Optional multi-container collaboration map** | [COLLABORATION_WORKSPACE.v1.md](COLLABORATION_WORKSPACE.v1.md) |
 
 ---
 

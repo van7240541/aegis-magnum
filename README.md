@@ -104,6 +104,23 @@ Governance and security-architecture **documents only** — no runtime code in t
 
 ---
 
+## Optional: collaboration workspaces (ChatGPT Projects, boards, etc.)
+
+If you split work across **multiple project containers** (chats + instructions + files per theme), use **[docs/COLLABORATION_WORKSPACE.v1.md](docs/COLLABORATION_WORKSPACE.v1.md)** as the map:
+
+- **Main Line** — priorities, handoff, integration ([README](README.md), [COLLABORATOR_HANDOFF](COLLABORATOR_HANDOFF.md), [SYSTEM_SECURITY_MODEL](docs/SYSTEM_SECURITY_MODEL.v1.md), [MVP_ROADMAP](docs/MVP_ROADMAP.md)).
+- **Canon & Governance** — Aegis security canon (secrets, hardening, IR, future execution, alignment) — **not** a copy of host `SECURITY_BOUNDARY` (that stays in the protected system’s repo).
+- **Observe Core** — first OBSERVE-only deliverable.
+- **Adapter Architecture** — universal adapter + anti-drift.
+- **Opus Adapter** — first host example only ([SECURITY_BOUNDARY_ALIGNMENT](docs/SECURITY_BOUNDARY_ALIGNMENT.md)).
+- **Threat Model & Validation** — evidence track; not shipped as files in this v1 tree (see doc).
+
+The **git repository** remains the **single source of truth** for canon text; projects are for **coordination**, not parallel canons.
+
+**Hebrew summary (draft):** [docs/COLLABORATION_WORKSPACE.he.v1.md](docs/COLLABORATION_WORKSPACE.he.v1.md)
+
+---
+
 ## Quick diagram
 
 ```text
