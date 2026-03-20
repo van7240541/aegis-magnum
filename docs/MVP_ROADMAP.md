@@ -1,109 +1,91 @@
-# EXPORT BOOTSTRAP
+# CANONICAL SOURCE
 
-# MVP_ROADMAP — Implementation Plan
+# MVP_ROADMAP — Implementation plan
 
-Status: **EXPORT BOOTSTRAP**
-Purpose: Define the staged implementation plan for Aegis Magnum from governance skeleton to operational guard.
-
----
-
-## Stage 1 — Minimal Sentinel
-
-**Goal**: A running guard that can observe a protected system and alert on basic health failures.
-
-Deliverables:
-- `engine.py` — main orchestrator
-- `modes.py` — OBSERVE mode only
-- `process_monitor.py` — check process liveness (PID, lock file, command line)
-- `integrity.py` — file size monotonicity (artifact growth detection)
-- `config_monitor.py` — configuration fingerprint baseline and drift detection
-- `audit_logger.py` — guard's own event log
-- One alert channel (Telegram or stdout)
-- Generic JSONL adapter (configurable paths, no system-specific invariants)
-- Basic configuration (`aegis.example.yaml`)
-
-**Mode**: OBSERVE + basic ALERT (process down, artifact stale, config drift).
-
-**No quarantine. No invariant verification beyond file health.**
+**Purpose:** Staged path from **security canon** (this export) to optional **guard code**, without acquiring decision authority. **No stage** implements domain-specific execution or unvalidated execution-request submission.
 
 ---
 
-## Stage 2 — Adapter invariants
+## Stage 0 — Security contour operationalized (parallel to any code)
 
-**Goal**: Add system-specific invariant checking via the adapter interface.
+**Goal:** The project’s **chain of trust** is real, not only paper.
 
-Deliverables:
-- `policy_engine.py` — evaluate adapter-provided invariants against observed data
-- `invariants.py` — InvariantResult model
-- `event_reader.py` — JSONL tail with offset tracking
-- VERIFY mode activation
-- First project-specific adapter (artifact schemas, join keys, invariant definitions)
-- Secret scanning (detect credential patterns in tracked files)
+Deliverables (organizational / ops, not Aegis code):
 
-**Mode**: OBSERVE + VERIFY + ALERT.
+- Secret **inventory** and verification that no credentials live in git — [SECRETS_AND_KEY_MANAGEMENT.v1.md](SECRETS_AND_KEY_MANAGEMENT.v1.md).
+- **SSH**, **firewall**, **patching**, **logging** baseline applied per [SERVER_HARDENING_BASELINE.v1.md](SERVER_HARDENING_BASELINE.v1.md).
+- **IR playbook** understood — [INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md](INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md).
+- **Alignment** read with host product — [SECURITY_BOUNDARY_ALIGNMENT.md](SECURITY_BOUNDARY_ALIGNMENT.md).
 
-**Invariants checked**: adapter-defined (e.g., fail-closed evaluation, artifact append-only, no secrets in source).
+**No guard process required** for Stage 0 completion.
 
 ---
 
-## Stage 3 — Quarantine bridge
+## Stage 1 — Minimal sentinel (OBSERVE-first)
 
-**Goal**: Enable boundary restriction requests through the adapter-defined mechanism.
+**Goal:** A running guard that **observes** and emits **structured audit events** only.
 
-Deliverables:
-- `quarantine.py` — quarantine request handler with precondition checks
-- QUARANTINE mode activation
-- Adapter quarantine capability (mechanism, payload, confirmation, removal)
-- Quarantine audit trail (request, confirm, sustain, remove)
-- Alert on quarantine lifecycle events
+Deliverables (illustrative names):
 
-**Mode**: Full OBSERVE + VERIFY + ALERT + QUARANTINE.
+- Orchestrator shell, **OBSERVE** mode only.
+- Process / artifact / config drift checks as read-only.
+- Guard-local **audit sink** (append-only, reviewable).
+- One alert channel optional — if present, must not imply execution authority.
+- Generic adapter stub per [docs/ADAPTER_CONTRACT.v1.md](docs/ADAPTER_CONTRACT.v1.md) (draft).
 
-**Quarantine is advisory only. The protected system decides whether to act on it.**
+**Explicitly out of scope:** VERIFY/ALERT/QUARANTINE in the same deliverable unless separately approved; no quarantine bridge; no BLOCK — [FUTURE_EXECUTION_SECURITY.v1.md](FUTURE_EXECUTION_SECURITY.v1.md).
 
----
-
-## Stage 4 — Artifact integrity
-
-**Goal**: Add cryptographic integrity checking for protected system artifacts.
-
-Deliverables:
-- Hash snapshot comparison (periodic file hashes stored by the guard)
-- Hash chain verification (when the protected system supports it)
-- Tamper detection alerts (shrinkage, truncation, hash mismatch)
-- Integrity ledger (guard's own record of artifact state over time)
-
-**Depends on**: protected system supporting or adopting hash chain in its artifacts.
+Success criteria: see [COLLABORATOR_HANDOFF.md](../COLLABORATOR_HANDOFF.md) §10.
 
 ---
 
-## Stage 5 — Execution boundary guard (future)
+## Stage 2 — VERIFY + ALERT
 
-**Goal**: If and when a protected system has a live execution path (intent to external action), provide optional interposition.
+**Goal:** Adapter-defined **invariants** and operator notifications; still no execution.
 
 Deliverables:
-- ENFORCEMENT_CONTRACT (new canonical document)
-- BLOCK mode specification
-- Interposition module (between intent and execution, reject-only, never modify)
-- Hard caps (size, frequency, allowed targets)
-- Fail-closed: no execution without guard confirmation
 
-**This stage requires a separate canonical contract. It is not part of v1 scope.**
+- Policy evaluation against adapter invariants.
+- VERIFY mode; structured failure reporting.
+- **Independent** alert identity vs. operational bots where possible.
+
+---
+
+## Stage 3 — Quarantine request path (optional)
+
+**Goal:** **Request** boundary restriction only through mechanisms the **protected system** owns.
+
+Deliverables:
+
+- Quarantine **request** formatter; full audit of request lifecycle on guard side.
+- Protected system remains authoritative on whether to act.
+
+---
+
+## Stage 4 — Deeper integrity
+
+**Goal:** Stronger tamper and integrity signals (hashes, chains) where the protected system supports them.
+
+---
+
+## Stage 5 — Future execution boundary (host product + separate contract)
+
+**Goal:** Only if the protected system introduces external execution: **separate** versioned enforcement contract — not part of this export’s v1 scope. Principles: [FUTURE_EXECUTION_SECURITY.v1.md](FUTURE_EXECUTION_SECURITY.v1.md).
+
+---
+
+## Deployment note
+
+**Phase A:** Guard on same host as protected system, **separate user**. **Phase B:** Guard on separate host — stronger isolation, more integration work. Design Stage 1–3 so Phase B does not require core rewrite.
 
 ---
 
 ## Priorities
 
-- Stages 1-3 form the MVP. They provide observation, verification, alerting, and boundary quarantine.
-- Stage 4 adds depth (cryptographic integrity) but is not required for initial deployment.
-- Stage 5 is future work that depends on the protected system's execution layer going live.
+1. **Stage 0** is not optional for a serious deployment.
+2. **Stage 1** must pass OBSERVE success criteria before expanding modes.
+3. **Execution** is not a milestone here — containment is documented only until product-specific contracts exist.
 
 ---
 
-## Deployment model
-
-**Phase A (recommended start)**: Guard runs on the same host as the protected system, under a separate user account. Simpler to deploy, shared failure domain.
-
-**Phase B (future)**: Guard runs on a separate host. True external monitoring. Requires remote artifact access (rsync, API, or log shipping). Better isolation but more complex.
-
-Design for Phase A, architect so that Phase B requires no core rewrite.
+**Version:** v1

@@ -1,137 +1,120 @@
-# EXPORT BOOTSTRAP
+# CANONICAL SOURCE
 
 # Aegis Magnum
 
-**Guard Architecture Framework**
+**Full security contour + optional guard framework**
 
 ---
 
-## What is this
+## What this is
 
-Aegis Magnum is a universal guard system for protecting decision and execution infrastructure. It observes, verifies, and alerts on the health and integrity of protected systems. When explicitly authorized, it may request quarantine at the boundary.
+**Aegis Magnum** is a **general-purpose** security architecture for projects that need a clear **chain-of-trust** model around **any** protected system — decision pipelines, automation, execution infrastructure — not only one product.
 
-It is designed to be connected to any system via adapters — not hardwired to a specific project.
+It specifies:
+
+- **Trust chain** — people, hosts, secrets, integrations, forensics, incident response.
+- **Infrastructure posture** — access, hardening, logging baselines (principles, not vendor-specific runbooks).
+- **Secrets and keys** — classification, storage rules, rotation, revocation.
+- **Future execution containment** — how automated **external action** must be bounded in any host that introduces it (no execution implementation in this canon).
+- **Alignment** with each host product’s own security canon (e.g. `SECURITY_BOUNDARY`, `SECURITY_INVARIANTS`) without replacing it.
+
+**Relationship to examples:** **Opus Magnum** is a **first concrete example** of a protected system whose contracts can be **aligned** with Aegis via [docs/SECURITY_BOUNDARY_ALIGNMENT.md](docs/SECURITY_BOUNDARY_ALIGNMENT.md). Aegis is **not** an “Opus security add-on”; the same documents apply to **other** hosts via **adapters** and host-specific runbooks.
+
+It also preserves the **guard** stance: observe / verify / alert / request boundary actions **only** under explicit contract; **zero decision authority** over the protected system.
+
+**Explicit statements (non-negotiable):**
+
+1. **Aegis is a security contour** — trust chain, secrets, host posture, IR, future execution limits — **not** an application runtime module inside a host repo.
+2. **Aegis does not own decision authority** — it does not decide, permit, or execute on behalf of the protected system; the host product’s canon defines that.
+3. **Aegis is removable** — a supported protected system must run correctly with Aegis absent or disabled; critical-path dependency on Aegis is a design failure.
+
+**What this folder is not:**
+
+- **Not** a runtime module inside another application’s codebase.
+- **Not** a second decision engine or executor for a specific host’s domain.
+- **Not** a substitute for the host repository’s `SECURITY_BOUNDARY` or `SECURITY_INVARIANTS` — see [docs/SECURITY_BOUNDARY_ALIGNMENT.md](docs/SECURITY_BOUNDARY_ALIGNMENT.md).
 
 **What this folder is:**
 
-- **Not** a runtime module inside another application’s codebase.
-- **Not** a second decision engine — the guard protects **integrity at the boundary**, not **authority over decisions**.
-- **An export-ready governance skeleton** for a **future standalone repository** (this tree may be copied out as its own Git repo).
-- **Discipline before code** — canonical contracts and reading order matter more than early implementation.
+- A **normalized document set** for a **future standalone repository** (copy this tree out as its own repo if desired).
+- **Removable**: the protected system must operate without Aegis; if Aegis becomes mandatory in the critical path, the design is wrong.
 
 ---
 
-## Core principle
+## Core principles
 
-> The guard protects the boundary, not the decision.
-> It enforces integrity, not authority.
+> The guard protects the **boundary**, not the **decision**.
+
+> Aegis describes **security architecture** — infrastructure, secrets, access, future execution limits — and optional guard behavior, **without** inheriting runtime authority.
+
+---
+
+## Root document
+
+Start here for the full model:
+
+- **[docs/SYSTEM_SECURITY_MODEL.v1.md](docs/SYSTEM_SECURITY_MODEL.v1.md)** — trust chain, assets, boundaries, observability, compromise containment.
+
+Supporting canon:
+
+- [docs/SECRETS_AND_KEY_MANAGEMENT.v1.md](docs/SECRETS_AND_KEY_MANAGEMENT.v1.md)
+- [docs/SERVER_HARDENING_BASELINE.v1.md](docs/SERVER_HARDENING_BASELINE.v1.md)
+- [docs/FUTURE_EXECUTION_SECURITY.v1.md](docs/FUTURE_EXECUTION_SECURITY.v1.md)
+- [docs/INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md](docs/INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md)
+- [docs/SECURITY_BOUNDARY_ALIGNMENT.md](docs/SECURITY_BOUNDARY_ALIGNMENT.md)
+
+Draft (interface research only):
+
+- [docs/ADAPTER_CONTRACT.v1.md](docs/ADAPTER_CONTRACT.v1.md)
+- [docs/ADAPTER_RESEARCH.v1.md](docs/ADAPTER_RESEARCH.v1.md)
+
+---
+
+## First-read for a new collaborator
+
+Read in this **exact order** (security engineer or implementer):
+
+1. [README.md](README.md) — this file.
+2. [COLLABORATOR_HANDOFF.md](COLLABORATOR_HANDOFF.md) — mission, breach rules, uncertainty defaults, first deliverable.
+3. [docs/SYSTEM_SECURITY_MODEL.v1.md](docs/SYSTEM_SECURITY_MODEL.v1.md)
+4. [docs/SECURITY_BOUNDARY_ALIGNMENT.md](docs/SECURITY_BOUNDARY_ALIGNMENT.md)
+5. [docs/FUTURE_EXECUTION_SECURITY.v1.md](docs/FUTURE_EXECUTION_SECURITY.v1.md)
+6. [docs/SECRETS_AND_KEY_MANAGEMENT.v1.md](docs/SECRETS_AND_KEY_MANAGEMENT.v1.md)
+7. [docs/SERVER_HARDENING_BASELINE.v1.md](docs/SERVER_HARDENING_BASELINE.v1.md)
+8. [docs/INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md](docs/INCIDENT_RESPONSE_AND_KEY_COMPROMISE.v1.md)
+9. [docs/ADAPTER_CONTRACT.v1.md](docs/ADAPTER_CONTRACT.v1.md) (draft)
+10. [docs/ADAPTER_RESEARCH.v1.md](docs/ADAPTER_RESEARCH.v1.md) (draft)
+11. [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md)
+12. [docs/REPO_NAVIGATION_MAP.md](docs/REPO_NAVIGATION_MAP.md)
 
 ---
 
 ## What this system will NEVER do
 
-- It will **not** make decisions for the protected system.
-- It will **not** override the protected system's execution.
-- It will **not** modify the protected system's artifacts, configuration, or source code.
-- It will **not** act without visibility — every action produces an audit record.
-- It will **not** acquire enforcement capability without an explicit versioned contract.
-- It will **not** operate as a second decision engine.
+- Participate in **decision authority** for the protected system.
+- Store or transmit **real secrets** inside these canonical documents.
+- Prescribe **domain execution logic**, **vendor API usage**, or concrete **executor implementations**.
+- Require **any named host product’s** runtime paths as conditions of this export’s validity.
 
 ---
 
 ## Current status
 
-This repository contains the **governance skeleton** — canonical contracts, invariants, and discipline documents. No runtime code exists yet. See [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md) for the implementation plan.
+Governance and security-architecture **documents only** — no runtime code in this tree. Implementation phases: [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md).
 
 ---
 
-## First-read for new collaborator
+## Quick diagram
 
-Use this order so you never have to guess whether this is part of another product, whether you may touch another system’s runtime, or whether you may enforce without a contract.
-
-**Human engineers:** read **[COLLABORATOR_HANDOFF.md](COLLABORATOR_HANDOFF.md)** immediately after this README — mission, your role, uncertainty defaults, anti-patterns, **first deliverable (OBSERVE-only, no enforcement)**, definition of success, and final design rules.
-
-**Everyone (humans and agents)** then reads, in order:
-
-1. `README.md` — project face, scope, global prohibitions.
-2. [docs/AGENT_ENTRY_CONTRACT.v1.md](docs/AGENT_ENTRY_CONTRACT.v1.md) — entry discipline; mandatory doc order for agents (humans should follow it too).
-3. [docs/PROJECT_DISCIPLINE.v1.md](docs/PROJECT_DISCIPLINE.v1.md) — operational law of the repo.
-4. [docs/AUTHORITY_BOUNDARY.v1.md](docs/AUTHORITY_BOUNDARY.v1.md) — zones; ban on silent influence.
-5. [docs/SECURITY_BOUNDARY.v1.md](docs/SECURITY_BOUNDARY.v1.md) — what the guard may and may not do.
-6. [docs/SECURITY_INVARIANTS.v1.md](docs/SECURITY_INVARIANTS.v1.md) — non-negotiable invariants.
-7. [docs/MODE_CONTRACT.v1.md](docs/MODE_CONTRACT.v1.md) — OBSERVE / VERIFY / ALERT / QUARANTINE / BLOCK.
-8. [docs/ADAPTER_CONTRACT.v1.md](docs/ADAPTER_CONTRACT.v1.md) — how the guard connects to a protected system.
-9. [docs/QUARANTINE_CONTRACT.v1.md](docs/QUARANTINE_CONTRACT.v1.md) — quarantine as request, not command.
-10. [bootstrap/REPO_LAYOUT.md](bootstrap/REPO_LAYOUT.md) — planned code layout (`core/`, `adapters/`, `channels/`, `contracts/`, `audit/`).
-11. [bootstrap/INITIAL_MODULE_MAP.md](bootstrap/INITIAL_MODULE_MAP.md) — module responsibilities and authority levels.
-12. [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md) — staged implementation plan.
-
-After that, use [docs/REPO_NAVIGATION_MAP.md](docs/REPO_NAVIGATION_MAP.md) for day-to-day lookup.
-
----
-
-## Quick orientation
-
-| Document | Purpose |
-|----------|---------|
-| [docs/SYSTEM_IDENTITY.md](docs/SYSTEM_IDENTITY.md) | What this project is and is not |
-| [docs/SECURITY_BOUNDARY.v1.md](docs/SECURITY_BOUNDARY.v1.md) | What the guard may and may not do |
-| [docs/MODE_CONTRACT.v1.md](docs/MODE_CONTRACT.v1.md) | Operating modes (OBSERVE / VERIFY / ALERT / QUARANTINE / BLOCK) |
-| [docs/ADAPTER_CONTRACT.v1.md](docs/ADAPTER_CONTRACT.v1.md) | How to connect to a protected system |
-| [docs/REPO_NAVIGATION_MAP.md](docs/REPO_NAVIGATION_MAP.md) | Full repository orientation |
-
-For **AI agents**: follow [docs/AGENT_ENTRY_CONTRACT.v1.md](docs/AGENT_ENTRY_CONTRACT.v1.md) (mandatory reading order there includes `SYSTEM_IDENTITY` and `CANON_CORE` — do not skip).
-
-For **human collaborators**: [COLLABORATOR_HANDOFF.md](COLLABORATOR_HANDOFF.md) plus the first-read list above.
-
----
-
-## Architecture
-
+```text
+Trust chain (humans, keys, hosts, integrations)
+        │
+        ▼
+SYSTEM_SECURITY_MODEL  ←── SECRETS / HARDENING / IR / FUTURE_EXECUTION
+        │
+        ▼
+Host product canon (SECURITY_BOUNDARY, SECURITY_INVARIANTS, …)  ←── ALIGNMENT doc
+        │
+        ▼
+Optional Aegis guard (observe / verify / alert) — removable, non-authoritative
 ```
-Protected System (owns all decision authority)
-    |
-    | emits artifacts, logs, process state
-    v
-Aegis Magnum Core (observes, verifies, alerts)
-    |
-    | via adapter
-    v
-Project-specific invariants and quarantine mechanism
-    |
-    | produces
-    v
-Alerts / evidence / quarantine requests (to operator)
-```
-
----
-
-## Key documents
-
-### Onboarding
-
-- [COLLABORATOR_HANDOFF.md](COLLABORATOR_HANDOFF.md) — human handoff: mission, scope, allowed/forbidden work, first implementation target, definition of success
-
-### Governance (CANONICAL SOURCE)
-
-- `PROJECT_DISCIPLINE.v1.md` — operational law
-- `SECURITY_INVARIANTS.v1.md` — non-negotiable invariants
-- `SECURITY_BOUNDARY.v1.md` — guard capability boundary
-- `AUTHORITY_BOUNDARY.v1.md` — zone permissions and prohibitions
-- `MODE_CONTRACT.v1.md` — operating mode definitions
-- `QUARANTINE_CONTRACT.v1.md` — quarantine semantics
-- `ADAPTER_CONTRACT.v1.md` — integration interface
-- `CHANGE_DISCIPLINE.v1.md` — change rules
-
-### Thinking layer (NON-CANONICAL DRAFT)
-
-- `SECURITY_RECONNAISSANCE.md` — observation registry
-- `VERIFIED_FACTS.md` — evidence registry
-- `THREAT_MODEL_DRAFT.md` — risk assessment
-- `OPEN_QUESTIONS.md` — architecture blockers
-
-### Bootstrap (EXPORT BOOTSTRAP)
-
-- `bootstrap/REPO_LAYOUT.md` — future code structure
-- `bootstrap/INITIAL_MODULE_MAP.md` — module inventory
-- `MVP_ROADMAP.md` — implementation roadmap
