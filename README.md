@@ -68,6 +68,12 @@ Draft (interface research only):
 - [docs/ADAPTER_CONTRACT.v1.md](docs/ADAPTER_CONTRACT.v1.md)
 - [docs/ADAPTER_RESEARCH.v1.md](docs/ADAPTER_RESEARCH.v1.md)
 
+**ChatGPT / Main Line instruction (copy-paste):** [docs/MAIN_LINE_PROJECT_INSTRUCTION.v1.md](docs/MAIN_LINE_PROJECT_INSTRUCTION.v1.md)
+
+**GitHub “About” description (copy-paste):** [docs/GITHUB_REPOSITORY_ABOUT.v1.md](docs/GITHUB_REPOSITORY_ABOUT.v1.md)
+
+**Observe Core — doc-only architecture sketch (no code):** [docs/OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md](docs/OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md)
+
 ---
 
 ## First-read for a new collaborator

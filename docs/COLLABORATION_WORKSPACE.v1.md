@@ -28,6 +28,8 @@
 |------|------|
 | [README.md](../README.md) | Project face, non-negotiables |
 | [COLLABORATOR_HANDOFF.md](../COLLABORATOR_HANDOFF.md) | Human entry, breach rules, first deliverable |
+| [MAIN_LINE_PROJECT_INSTRUCTION.v1.md](MAIN_LINE_PROJECT_INSTRUCTION.v1.md) | Paste block for ChatGPT / project instructions |
+| [GITHUB_REPOSITORY_ABOUT.v1.md](GITHUB_REPOSITORY_ABOUT.v1.md) | Suggested GitHub **About** text |
 | [SYSTEM_SECURITY_MODEL.v1.md](SYSTEM_SECURITY_MODEL.v1.md) | Root trust-chain and asset model |
 | [REPO_NAVIGATION_MAP.md](REPO_NAVIGATION_MAP.md) | Orientation |
 | [MVP_ROADMAP.md](MVP_ROADMAP.md) | Staged delivery |
@@ -64,6 +66,7 @@
 | File | Role |
 |------|------|
 | [COLLABORATOR_HANDOFF.md](../COLLABORATOR_HANDOFF.md) | Strict first deliverable |
+| [OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md](OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md) | Doc-only component / data-flow sketch (no code) |
 | [FUTURE_EXECUTION_SECURITY.v1.md](FUTURE_EXECUTION_SECURITY.v1.md) | No premature execution |
 | [ADAPTER_CONTRACT.v1.md](ADAPTER_CONTRACT.v1.md) (draft) | Read-only / structural adapter scope |
 | [MVP_ROADMAP.md](MVP_ROADMAP.md) | Stages 0–1 |

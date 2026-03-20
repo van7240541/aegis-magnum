@@ -31,6 +31,10 @@ exports/aegis_magnum/
     ├── ADAPTER_RESEARCH.v1.md           (draft)
     ├── MVP_ROADMAP.md
     ├── COLLABORATION_WORKSPACE.v1.md    (optional ChatGPT / multi-project map)
+    ├── COLLABORATION_WORKSPACE.he.v1.md (Hebrew summary, draft)
+    ├── MAIN_LINE_PROJECT_INSTRUCTION.v1.md  (Main Line chat paste)
+    ├── GITHUB_REPOSITORY_ABOUT.v1.md    (suggested GitHub About)
+    ├── OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md (Observe-first sketch, docs only)
     └── REPO_NAVIGATION_MAP.md           (this file)
 ```
 
@@ -52,6 +56,9 @@ exports/aegis_magnum/
 | **Adapter interface (draft)** | [ADAPTER_CONTRACT.v1.md](ADAPTER_CONTRACT.v1.md) |
 | **Roadmap** | [MVP_ROADMAP.md](MVP_ROADMAP.md) |
 | **Optional multi-container collaboration map** | [COLLABORATION_WORKSPACE.v1.md](COLLABORATION_WORKSPACE.v1.md) |
+| **Main Line chat instruction (paste)** | [MAIN_LINE_PROJECT_INSTRUCTION.v1.md](MAIN_LINE_PROJECT_INSTRUCTION.v1.md) |
+| **GitHub About (paste)** | [GITHUB_REPOSITORY_ABOUT.v1.md](GITHUB_REPOSITORY_ABOUT.v1.md) |
+| **Observe Core sketch (docs only)** | [OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md](OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md) |
 
 ---
 

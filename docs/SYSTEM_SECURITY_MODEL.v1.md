@@ -128,6 +128,10 @@ Baseline expectations: [SERVER_HARDENING_BASELINE.v1.md](SERVER_HARDENING_BASELI
 | [ADAPTER_RESEARCH.v1.md](ADAPTER_RESEARCH.v1.md) | Adapter research notes (draft) |
 | [MVP_ROADMAP.md](MVP_ROADMAP.md) | Staged delivery |
 | [REPO_NAVIGATION_MAP.md](REPO_NAVIGATION_MAP.md) | Orientation |
+| [COLLABORATION_WORKSPACE.v1.md](COLLABORATION_WORKSPACE.v1.md) | Optional ChatGPT / multi-container map |
+| [MAIN_LINE_PROJECT_INSTRUCTION.v1.md](MAIN_LINE_PROJECT_INSTRUCTION.v1.md) | Main Line project instruction (paste) |
+| [GITHUB_REPOSITORY_ABOUT.v1.md](GITHUB_REPOSITORY_ABOUT.v1.md) | Suggested GitHub **About** text |
+| [OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md](OBSERVE_CORE_ARCHITECTURE_SKETCH.v1.md) | Observe-first code sketch (docs only) |
 
 ---
 
